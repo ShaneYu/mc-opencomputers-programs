@@ -73,10 +73,10 @@ print("Downloading " .. application)
 local termW, termH, _, _, _, termY = term.getViewport()
 term.setCursor(1, termY)
 
-if termY + 3 >= termH then
-  termY = termH - 3
+if termY + 5 >= termH then
+  termY = termH - 5
 
-  for _ = 1, 3 do
+  for _ = 1, 5 do
     print("")
   end
 end
@@ -91,10 +91,7 @@ term.write(string.format("% 5.1f%% ", percent) .. string.rep("░", barMlen))
 
 for _, pk in pairs(dlTbl) do
   term.setCursor(1, termY + 3)
-  for i = 1, termW do
-    term.write("")
-  end
-  term.setCursor(1, termY + 3)
+  term.clearLine()
   term.write(pk.file)
 
   local webData = internet.request(pk.link)
