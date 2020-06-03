@@ -2,24 +2,24 @@
 local application = "ShadowRealm Libraries"
 local dlTbl = {
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/Mixin.lua",
-    file = "/usr/lib/ShadowRealm/core/Mixin.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/mixin.lua",
+    file = "/usr/lib/shadowrealm/core/mixin.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/Class.lua",
-    file = "/usr/lib/ShadowRealm/core/Class.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/class.lua",
+    file = "/usr/lib/shadowrealm/core/class.lua"
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
-    file = "/usr/lib/ShadowRealm/JSON.lua"
+    file = "/usr/lib/shadowrealm/JSON.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/Config.lua",
-    file = "/usr/lib/ShadowRealm/Config.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/config.lua",
+    file = "/usr/lib/shadowrealm/config.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/StringBuilder.lua",
-    file = "/usr/lib/ShadowRealm/StringBuilder.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/stringBuilder.lua",
+    file = "/usr/lib/shadowrealm/stringBuilder.lua"
   }
 }
 
@@ -30,7 +30,7 @@ local fs = require("filesystem")
 local term = require("term")
 
 if not component.isAvailable("internet") then
-  print("Missing an internet card!")
+  io.stderr:write("Missing an internet card!")
   return
 end
 
@@ -73,10 +73,10 @@ print("Downloading " .. application)
 local termW, termH, _, _, _, termY = term.getViewport()
 term.setCursor(1, termY)
 
-if termY + 5 >= termH then
-  termY = termH - 5
+if termY + 3 >= termH then
+  termY = termH - 3
 
-  for _ = 1, 5 do
+  for _ = 1, 3 do
     print("")
   end
 end
@@ -91,13 +91,17 @@ term.write(string.format("% 5.1f%% ", percent) .. string.rep("░", barMlen))
 
 for _, pk in pairs(dlTbl) do
   term.setCursor(1, termY + 3)
+  for i = 1, termW do
+    term.write("")
+  end
+  term.setCursor(1, termY + 3)
   term.write(pk.file)
 
   local webData = internet.request(pk.link)
 
   if not webData then
     term.setCursor(1, termY + 5)
-    print("Error while downloading " .. pk.link)
+    io.stderr:write("Error while downloading " .. pk.link)
 
     return
   end
@@ -110,7 +114,7 @@ for _, pk in pairs(dlTbl) do
 
   if not writeFile(content, pk.file) then
     term.setCursor(1, termY + 5)
-    print("Error while writing " .. pk.file)
+    io.stderr:write("Error while writing " .. pk.file)
 
     return
   end

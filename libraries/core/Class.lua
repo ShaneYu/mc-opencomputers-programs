@@ -1,4 +1,4 @@
-local Mixin = require("Mixin")
+local Mixin = require("shadowrealm/core/mixin")
 local Class = Mixin:copy()
 
 function Class:extend(...)
@@ -39,10 +39,10 @@ function Class:new(...)
   return instance
 end
 
-function Class:copy()
+function Class:copy(excludePrivates)
   local copy = self.__super:extend()
 
-  Mixin.include(copy, self)
+  Mixin.include(copy, self, excludePrivates)
 
   return copy
 end

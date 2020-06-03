@@ -1,4 +1,4 @@
-local Class = require("core/Class")
+local Class = require("shadowrealm/core/class")
 local StringBuilder = Class:extend()
 
 function StringBuilder:__init()

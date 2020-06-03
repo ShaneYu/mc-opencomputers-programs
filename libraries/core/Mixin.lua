@@ -1,8 +1,10 @@
 local Mixin = {}
 
-function Mixin:include(other)
+function Mixin:include(other, excludePrivates)
   for k, v in pairs(other) do
-    self[k] = v
+    if not excludePrivates or not k:find("^__") then
+      self[k] = v
+    end
   end
 end
 
