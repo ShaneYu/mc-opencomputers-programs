@@ -2,16 +2,16 @@
 local application = "ShadowRealm Libraries"
 local dlTbl = {
   {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
+    file = "/usr/lib/JSON.lua"
+  },
+  {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/mixin.lua",
     file = "/usr/lib/shadowrealm/core/mixin.lua"
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/class.lua",
     file = "/usr/lib/shadowrealm/core/class.lua"
-  },
-  {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
-    file = "/usr/lib/shadowrealm/JSON.lua"
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/config.lua",

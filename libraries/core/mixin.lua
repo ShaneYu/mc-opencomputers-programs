@@ -1,10 +1,8 @@
 local Mixin = {}
 
-function Mixin:include(other, excludePrivates)
+function Mixin:include(other)
   for k, v in pairs(other) do
-    if not excludePrivates or not k:find("^__") then
-      self[k] = v
-    end
+    self[k] = v
   end
 end
 
@@ -16,6 +14,45 @@ function Mixin:copy()
   end
 
   return copy
+end
+
+function Mixin:toSanitizedTable()
+  local cleaned = {}
+
+  local function isArray(tbl)
+    local i = 0
+
+    for _ in pairs(tbl) do
+      i = i + 1
+      if tbl[i] == nil then
+        return false
+      end
+    end
+
+    return true
+  end
+
+  local function cleanTable(tbl)
+    if isArray(tbl) then
+      return tbl
+    end
+
+    local clean_tbl = {}
+
+    for k, v in pairs(tbl) do
+      if not k:find("^__") then
+        if type(v) == "table" then
+          clean_tbl[k] = cleanTable(v)
+        else
+          clean_tbl[k] = v
+        end
+      end
+    end
+
+    return clean_tbl
+  end
+
+  return cleanTable(self)
 end
 
 function Mixin:hasa(other, ...)

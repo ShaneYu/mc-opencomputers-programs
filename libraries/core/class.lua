@@ -39,10 +39,10 @@ function Class:new(...)
   return instance
 end
 
-function Class:copy(excludePrivates)
+function Class:copy()
   local copy = self.__super:extend()
 
-  Mixin.include(copy, self, excludePrivates)
+  Mixin.include(copy, self)
 
   return copy
 end

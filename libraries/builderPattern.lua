@@ -6,12 +6,6 @@ function BuilderPattern:__init(fileName)
   Config.__init(self, fileName, {})
 end
 
-local function _validateLayerData(layerData)
-  -- TODO: Validate that the layer only contains chars that are in the materials of this pattern
-
-  return false
-end
-
 function BuilderPattern:setOutput(itemName)
   self.output = itemName
 end
@@ -87,21 +81,32 @@ function BuilderPattern:clearLayers()
 end
 
 function BuilderPattern:isValid()
-  if not self.output then
+  local next = next
+  local function isNilOrEmpty(tbl)
+    return not tbl or next(tbl) == nil
+  end
+
+  if not self.output or self.output:gsub("%s+", ""):len() == 0 then
     return false, "Pattern is missing an output item name"
   end
 
-  if not self.materials or #self.materials < 1 then
+  if isNilOrEmpty(self.materials) then
     return false, "Pattern is missing materials"
   end
 
-  if not self.layers or #self.layers < 1 then
+  if isNilOrEmpty(self.layers) then
     return false, "Pattern is missing layers"
   end
 
-  -- TODO: For each layer, check it's data only contains chars in the materials using '_validateLayerData(...)'
+  for _, layer in ipairs(self.layers) do
+    for _, materialKey in ipairs(layer) do
+      if self.materials[materialKey] == nil then
+        return false, "Pattern layers contains materials that have not been added"
+      end
+    end
+  end
 
-  return false
+  return true
 end
 
 return BuilderPattern

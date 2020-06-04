@@ -8,3 +8,5 @@ testPattern:addLayer({"d", "c", "d"})
 testPattern:addLayer({"c", "d", "c"})
 testPattern:addLayer({"d", "c", "d"})
 testPattern:save()
+
+print("Is pattern valid: " .. testPattern:isValid())
