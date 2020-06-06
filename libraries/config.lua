@@ -1,7 +1,7 @@
 local io = require("io")
 local shell = require("shell")
+local filesystem = require("filesystem")
 local JSON = require("JSON")
-local Mixin = require("shadowrealm/core/mixin")
 local Class = require("shadowrealm/core/class")
 
 local Config = Class:extend()
@@ -38,7 +38,14 @@ function Config:reload()
 end
 
 function Config:save()
-  local file, err = io.open(shell.resolve(self.__filePath), "w")
+  local filePath = shell.resolve(self.__filePath)
+  local fileDir = filesystem.path(filePath)
+
+  if not filesystem.exists(filePath) then
+    filesystem.makeDirectory(fileDir)
+  end
+
+  local file, err = io.open(filePath, "w")
 
   if not file then
     return false, "Config cannot be saved", err
