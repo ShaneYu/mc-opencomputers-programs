@@ -1,8 +1,8 @@
-local Class = require("shadowrealm/core/class")
-local StringBuilder = Class:extend()
+local Class = require("shadowrealm/core/classify")
 
-function StringBuilder:__init()
-  Class.__init(self)
+local StringBuilder = Class("StringBuilder")
+
+function StringBuilder:initialize()
   self.buffer = {}
 end
 
