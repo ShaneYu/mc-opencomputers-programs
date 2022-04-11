@@ -24,7 +24,6 @@ local dlTbl = {
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/stateful.lua",
     file = "/usr/lib/shadowrealm/mixins/stateful.lua"
-  }
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/tableUtils.lua",
