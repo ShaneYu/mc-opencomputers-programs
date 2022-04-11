@@ -2,24 +2,33 @@
 local application = "ShadowRealm Libraries"
 local dlTbl = {
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
-    file = "/usr/lib/JSON.lua"
-  },
-  {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/mixin.lua",
-    file = "/usr/lib/shadowrealm/core/mixin.lua"
-  },
-  {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/class.lua",
-    file = "/usr/lib/shadowrealm/core/class.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/classify.lua",
+    file = "/usr/lib/shadowrealm/core/classify.lua"
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/config.lua",
     file = "/usr/lib/shadowrealm/config.lua"
   },
   {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
+    file = "/usr/lib/JSON.lua"
+  },
+  {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/stringBuilder.lua",
     file = "/usr/lib/shadowrealm/stringBuilder.lua"
+  },
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/serializable.lua",
+    file = "/usr/lib/shadowrealm/mixins/serializable.lua"
+  },
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/stateful.lua",
+    file = "/usr/lib/shadowrealm/mixins/stateful.lua"
+  }
+  },
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/tableUtils.lua",
+    file = "/usr/lib/shadowrealm/mixins/tableUtils.lua"
   }
 }
 
