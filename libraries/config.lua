@@ -1,62 +1,97 @@
 local io = require("io")
 local shell = require("shell")
 local filesystem = require("filesystem")
-local Class = require("shadowrealm/core/classify")
-local Serializable = require("shadowrealm/mixins/serializable")
+local Class = require("shadowrealm/core/middleclass")
+local ObjectStore = require("shadowrealm/objectStore")
 
-local Config = Class("Config"):include(Serializable)
+local Config = Class("Config")
 
-local function _autoLoad(self, errorIfLoadFails)
-  local res, err, errReason = self:reload()
+local function _isArray(tbl)
+  local i = 0
 
-  if not res and errorIfLoadFails then
-    io.stderr:write(err .. ". Reason: " .. errReason)
+  for _ in pairs(tbl) do
+    i = i + 1
+
+    if tbl[i] == nil then
+      return false
+    end
+  end
+
+  return true
+end
+
+local _cleanTable
+_cleanTable = function(tbl)
+  if _isArray(tbl) then
+    return tbl
+  end
+
+  local cleanedTable = {}
+
+  for k, v in pairs(tbl) do
+    if k ~= "class" and not k:find("^_") and type(v) ~= "function" then
+      if type(v) == "table" then
+        cleanedTable[k] = _cleanTable(v)
+      else
+        cleanedTable[k] = v
+      end
+    end
+  end
+
+  return cleanedTable
+end
+
+function Config:initialize(name, defaults, storeDir)
+  self._storeName = name
+  self._store = ObjectStore:new(storeDir)
+  self._defaults = defaults
+
+  self:applyDefaults()
+
+  if not self._store:exists(self._storeName) then
+    self._store:save(self._storeName, _cleanTable(self))
   end
 end
 
-local function _ensureFilePathDirectoryExists(filePath)
-  local directory = filesystem.path(filePath)
-
-  if not filesystem.exists(directory) then
-    filesystem.makeDirectory(directory)
+function Config:applyDefaults()
+  if self._defaults ~= nil then
+    for k, v in pairs(self._defaults) do
+      self[k] = v
+    end
   end
 end
 
-function Config:initialize(fileName, defaults, errorIfLoadFilesOnInitialise)
-  self._filePath = shell.resolve(fileName)
+function Config:load()
+  self:applyDefaults()
 
-  if defaults ~= nil then
-    self:include(defaults)
+  local status, obj = self._store:load(self._storeName)
+
+  if not status then
+    return false
   end
 
-  _autoLoad(self, errorIfLoadFilesOnInitialise)
-end
-
-function Config:reload()
-  local file, err = io.open(shell.resolve(self._filePath), "r")
-
-  if not file then
-    return nil, "Config cannot be loaded", err
+  if obj ~= nil then
+    for k, v in pairs(obj) do
+      self[k] = v
+    end
   end
 
-  local fileContent = file:read("*a")
-  self:deserialize(fileContent)
-  io.close(file)
+  return true
 end
 
 function Config:save()
-  _ensureFilePathDirectoryExists(self._filePath)
+  local status = self._store:save(self._storeName, _cleanTable(self))
 
-  local file, err = io.open(self._filePath, "w")
-
-  if not file then
-    return false, "Config cannot be saved", err
+  if not status then
+    io.stderr:write("Unable to save configuration to file")
+    return false
   end
 
-  file:write(self:serialize())
-  io.close(file)
-
   return true
+end
+
+function Config:delete()
+  return self._store:delete(self._storeName)
 end
 
 return Config

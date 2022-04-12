@@ -1,33 +1,52 @@
 -- modular code
 local application = "ShadowRealm Libraries"
 local dlTbl = {
+  -- Core
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/classify.lua",
-    file = "/usr/lib/shadowrealm/core/classify.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/middleclass.lua",
+    file = "/usr/lib/shadowrealm/core/middleclass.lua"
   },
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/core/stateful.lua",
+    file = "/usr/lib/shadowrealm/core/stateful.lua"
+  },
+
+  -- Utils
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/config.lua",
     file = "/usr/lib/shadowrealm/config.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/JSON.lua",
-    file = "/usr/lib/JSON.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/json.lua",
+    file = "/usr/lib/json.lua"
   },
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/stringBuilder.lua",
     file = "/usr/lib/shadowrealm/stringBuilder.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/serializable.lua",
-    file = "/usr/lib/shadowrealm/mixins/serializable.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/serializer.lua",
+    file = "/usr/lib/shadowrealm/serializer.lua"
   },
   {
-    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/stateful.lua",
-    file = "/usr/lib/shadowrealm/mixins/stateful.lua"
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/objectStore.lua",
+    file = "/usr/lib/shadowrealm/objectStore.lua"
   },
+
+  -- Mixins
   {
     link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/mixins/tableUtils.lua",
     file = "/usr/lib/shadowrealm/mixins/tableUtils.lua"
+  },
+
+  -- UI
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/ui/gui.lua",
+    file = "/usr/lib/shadowrealm/ui/gui.lua"
+  },
+  {
+    link = "https://raw.githubusercontent.com/ShaneYu/mc-opencomputers-programs/master/libraries/ui/buttons.lua",
+    file = "/usr/lib/shadowrealm/ui/buttons.lua"
   }
 }
 

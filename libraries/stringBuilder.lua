@@ -1,4 +1,4 @@
-local Class = require("shadowrealm/core/classify")
+local Class = require("shadowrealm/core/middleclass")
 
 local StringBuilder = Class("StringBuilder")
 
